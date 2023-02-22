@@ -40,10 +40,10 @@ const jwt = require("jsonwebtoken");
 // for register the user ---->
 /**
  * @swagger
- * /users/create:
+ * /user/register:
  *    post:
- *      summary: To post the details of a new user
- *      tags: [Users]
+ *      summary: To register the details of a new user
+ *      tags: [User]
  *      requestBody:
  *        required: true
  *        content:
@@ -56,9 +56,27 @@ const jwt = require("jsonwebtoken");
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/User'
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    description: User register successfully
+ *                  status:
+ *                    type: string
+ *                    description: Success
  *        500:
- *          description: Some server error
+ *          description: Something went wrong
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    description: User register successfully
+ *                  status:
+ *                    type: string
+ *                    description: Failed
  */
 
 userRouter.post("/register", async (req, res) => {
@@ -100,6 +118,56 @@ userRouter.post("/register", async (req, res) => {
 });
 
 // for login the existing users -->
+
+/**
+ * @swagger
+ * /user/login:
+ *    post:
+ *      summary: To login the existing user
+ *      tags: [User]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *                type: object
+ *                properties:
+ *                  email:
+ *                    type: string
+ *                  password:
+ *                    type: string
+ *      responses:
+ *        200:
+ *          description: The user was successfully login
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    description: User Login successfully
+ *                  status:
+ *                    type: string
+ *                    description: Success
+ *                  token:
+ *                    type: string
+ *                  data:
+ *                    type: object
+ *        500:
+ *          description: Something went wrong
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Failed
+ */
+
 userRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -117,6 +185,7 @@ userRouter.post("/login", async (req, res) => {
             message: "User login successfully",
             status: "Success",
             token,
+            data: user[0],
           });
         }
       });

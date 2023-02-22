@@ -52,6 +52,13 @@ const productRouter = express.Router();
  *           description: extra specs about the product
  */
 
+/**
+ * @swagger
+ * tags:
+ *  name: Products
+ *  description: All the API routes related to Products
+ */
+
 // get products --->
 productRouter.get("/", async (req, res) => {
   const limit = req.query.limit || 10;
@@ -96,6 +103,46 @@ productRouter.get("/", async (req, res) => {
 
 // get product by id
 
+/**
+ * @swagger
+ * /products/{id}:
+ *    get:
+ *      summary: get product by its id
+ *      tags: [Products]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: Numeric ID of the product to retrieve.
+ *          schema:
+ *            type: integer
+ *      responses:
+ *        200:
+ *          description: Getting data by ID
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  data:
+ *                    $ref: '#/components/schemas/Product'
+ *                  status:
+ *                    type: string
+ *                    description: Success
+ *        500:
+ *          description: Something went wrong
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Failed
+ */
+
 productRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -108,6 +155,45 @@ productRouter.get("/:id", async (req, res) => {
 });
 
 // add products
+
+/**
+ * @swagger
+ * /products/add:
+ *    post:
+ *      summary: add products
+ *      tags: [Products]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Product'
+ *      responses:
+ *        200:
+ *          description: Data added Successfuly
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Success
+ *        500:
+ *          description: Something went wrong
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Failed
+ */
 
 productRouter.post("/add", async (req, res) => {
   try {
@@ -124,6 +210,52 @@ productRouter.post("/add", async (req, res) => {
 
 // update product by id
 
+/**
+ * @swagger
+ * /products/{id}:
+ *    patch:
+ *      summary: update product by id
+ *      tags: [Products]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: Numeric ID of the product to retrieve.
+ *          schema:
+ *            type: integer
+ *      requestBody:
+ *        required: false
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Product'
+ *      responses:
+ *        200:
+ *          description: Data Updated Successfuly
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Success
+ *        500:
+ *          description: Something went wrong
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Failed
+ */
+
 productRouter.patch("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -138,6 +270,46 @@ productRouter.patch("/:id", async (req, res) => {
 });
 
 // delete product by id
+
+/**
+ * @swagger
+ * /products/{id}:
+ *    delete:
+ *      summary: delete product by id
+ *      tags: [Products]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: Numeric ID of the product to retrieve.
+ *          schema:
+ *            type: integer
+ *      responses:
+ *        200:
+ *          description: Data deleted Successfuly
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Success
+ *        500:
+ *          description: Something went wrong
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Failed
+ */
 
 productRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;

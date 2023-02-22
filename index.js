@@ -24,7 +24,7 @@ const options = {
       title: "Flopkart Api",
       version: "1.0.0",
     },
-    server: [
+    servers: [
       {
         url: "https://drab-pants-bass.cyclic.app/",
       },
