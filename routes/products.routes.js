@@ -85,6 +85,12 @@ const productRouter = express.Router();
  *          description: page number  (by default its 0)
  *          schema:
  *            type: integer
+ *        - in: path
+ *          name: sortBy
+ *          required: false
+ *          description: sort products by it price ( you can use 'asc' or 'desc' )
+ *          schema:
+ *            type: string
  *      responses:
  *        200:
  *          description: Getting data by search
