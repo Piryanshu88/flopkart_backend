@@ -60,6 +60,58 @@ const productRouter = express.Router();
  */
 
 // get products --->
+
+/**
+ * @swagger
+ * /products?q={query}:
+ *    get:
+ *      summary: get product by its id
+ *      tags: [Products]
+ *      parameters:
+ *        - in: path
+ *          name: q
+ *          description: search products by this query
+ *          schema:
+ *            type: string
+ *        - in: path
+ *          name: limit
+ *          required: false
+ *          description: To limit the number of product (by default its 10)
+ *          schema:
+ *            type: integer
+ *        - in: path
+ *          name: page
+ *          required: false
+ *          description: page number  (by default its 0)
+ *          schema:
+ *            type: integer
+ *      responses:
+ *        200:
+ *          description: Getting data by search
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  data:
+ *                    $ref: '#/components/schemas/Product'
+ *                  status:
+ *                    type: string
+ *                    description: Success
+ *        500:
+ *          description: Something went wrong
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                  status:
+ *                    type: string
+ *                    description: Failed
+ */
+
 productRouter.get("/", async (req, res) => {
   const limit = req.query.limit || 10;
   const page = Math.max(0, req.query.page || 0);
